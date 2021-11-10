@@ -28,12 +28,11 @@ function createTabPanel(id) {
 
 function configWeeklyWeather(weekList) {
     // const $container = document.querySelector('.weeklyWeather')
-    const $container = document.querySelector('.weeklyWeather')
+    const $container = document.querySelector('.tabs')
 
     weekList.forEach((day, index) => {
         const $panel = createTabPanel(index)
         $container.append($panel)
-        debugger
         day.forEach((weather, idnexWheather) => {
             $panel.querySelector('.dayWeather-list').append(createPeriodTime(weather))
 

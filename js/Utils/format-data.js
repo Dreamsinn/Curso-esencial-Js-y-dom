@@ -40,7 +40,6 @@ export function formatWeekList(rawData) {
     let dayList = []
     const toDay = new Date().getDay()
 
-
     rawData.forEach((item, index) => {
         let itemDay = new Date(item.dt * 1000).getDay()
         dayList.push(item)
