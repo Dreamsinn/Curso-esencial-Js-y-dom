@@ -43,18 +43,15 @@ export function formatWeekList(rawData) {
 
     rawData.forEach((item, index) => {
         let itemDay = new Date(item.dt * 1000).getDay()
-        dayList.push(rawData.splice(index, 1))
-
+        dayList.push(item)
+        rawData.splice(index, 1)
         if (!(toDay === itemDay)) {
             weekList.push(dayList)
-            debugger
             while (rawData.length > index) {
                 weekList.push(rawData.splice(0, 8))
             }
         }
-
     })
-    debugger
     weekList.splice(5, 1)
     return weekList
 }
