@@ -1,4 +1,4 @@
-import { BASE_API, API_KEY } from "../constants.js"
+import {BASE_API, API_KEY} from "../constants.js"
 
 export async function getCurrentWeather(lat, lon) {
     const response = await fetch(`${BASE_API}weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
@@ -12,8 +12,6 @@ export async function getCurrentWeather(lat, lon) {
         data,
     }
 }
-
-// dado que la funcion de forecast (para ver 4 dias a futuro) y la de wather (ahora mismo), son casiidenticas, se podrian juntar en una
 
 export async function getWeeklyWeather(lat, lon) {
     const response = await fetch(`${BASE_API}forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)

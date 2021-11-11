@@ -5,7 +5,7 @@ import {getLatLon} from './geolocation.js'
 import {getCurrentWeather} from './services/weather.js'
 
 
-function setCurrentCity($el /*elemento = container, en este caso*/, city) {
+function setCurrentCity($el, city) {
     $el.textContent = city
 }
 
@@ -53,9 +53,6 @@ function configCurrentWeather(weather) {
     const $currentWeatherDate = document.querySelector('#current-weather-date')
     setCurrentDate($currentWeatherDate)
     // city
-    // const $currentWeatherCity = document.querySelector('#current-weather-city')
-    // $currentWeatherCity.textContent = weather.name
-    // esto funcionaria, para que quede mas ordenado, porque se requeriran mas funciones aqui, creamos la setCurrentCity fuera y:
     const $currentWeatherCity = document.querySelector('#current-weather-city')
     const city = weather.name
     setCurrentCity($currentWeatherCity, city)
@@ -75,13 +72,11 @@ function configCurrentWeather(weather) {
 export default async function currentWeather() {
     // Geo // API - weather // config
 
-    const { lat, lon, isError } = await getLatLon()
+    const {lat, lon, isError} = await getLatLon()
     if (isError) return console.log('ha ocurrido error en la ubicación')
-    // console.log(lat, lon)
 
-    const { isError: currentWeatherError, data: weather } = await getCurrentWeather(lat, lon)
+    const {isError: currentWeatherError, data: weather} = await getCurrentWeather(lat, lon)
     // como el isError se llama igual que el isError anterior mejor bautizarlo
-    // a rebautizar data como weather nos permite comentar los datos de prueba o comentar la linea anterior para ir viendo si las cosas si funciona
     if (currentWeatherError) return console.log('a ocurrido un error trayendo los datos del clima')
 
     configCurrentWeather(weather)

@@ -1,9 +1,9 @@
-import { getWeeklyWeather } from './services/weather.js'
-import { getLatLon } from './geolocation.js'
-import { formatWeekList } from './Utils/format-data.js'
-import { createDOM } from './Utils/dom.js'
-import { createPeriodTime } from './period-time.js'
-
+import {getWeeklyWeather} from './services/weather.js'
+import {getLatLon} from './geolocation.js'
+import {formatWeekList} from './Utils/format-data.js'
+import {createDOM} from './Utils/dom.js'
+import {createPeriodTime} from './period-time.js'
+import draggable from "./draggable.js";
 
 
 function tabPanelTemplate(id) {
@@ -27,13 +27,12 @@ function createTabPanel(id) {
 }
 
 function configWeeklyWeather(weekList) {
-    // const $container = document.querySelector('.weeklyWeather')
     const $container = document.querySelector('.tabs')
 
     weekList.forEach((day, index) => {
         const $panel = createTabPanel(index)
         $container.append($panel)
-        day.forEach((weather, idnexWheather) => {
+        day.forEach((weather) => {
             $panel.querySelector('.dayWeather-list').append(createPeriodTime(weather))
 
         })
@@ -41,13 +40,17 @@ function configWeeklyWeather(weekList) {
 }
 
 export default async function weeklyWeather() {
-    const { lat, lon, isError } = await getLatLon()
+    const $container = document.querySelector('.weeklyWeather')
+
+    const {lat, lon, isError} = await getLatLon()
     if (isError) return console.log('ha ocurrido error en la ubicación')
 
-    const { isError: weeklyWeatherError, data: weather } = await getWeeklyWeather(lat, lon)
+    const {isError: weeklyWeatherError, data: weather} = await getWeeklyWeather(lat, lon)
     if (weeklyWeatherError) return console.log('a ocurrido un error trayendo el pronostico del clima')
 
     const weekList = formatWeekList(weather.list)
 
     configWeeklyWeather(weekList)
+
+    draggable($container)
 }

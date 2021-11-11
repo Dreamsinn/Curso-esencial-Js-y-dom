@@ -24,7 +24,7 @@ export function formatTemp(value) {
     })
     return weekList
 }*/
-/*estas dos funciones hacen lo mimso, serar la primera array (40 elementos), en una array con 5 arrays de 8 elemntos (40/8=5)
+/*estas dos funciones hacen lo mimso, serar la primera array (40 elementos), en una array con 5 arrays de 8 elemntos (40/8=5), aunque la segunda deja a rawdata vacio
 export function formatWeekList(rawData) {
     const weekList = []
     while (rawData.length > 0) {
@@ -35,24 +35,22 @@ export function formatWeekList(rawData) {
 }*/
 
 // La API como coje a partid del momento que del dia qu estas, las primeras 8 prediciones no tienen porque ser de hoy, las he separado por las de hoy, y luego de 8 en 8, me he cargado el array inicial
-export function formatWeekList(rawData) {
-    const weekList = []
-    let dayList = []
-    const toDay = new Date().getDay()
 
-    rawData.forEach((item, index) => {
-        let itemDay = new Date(item.dt * 1000).getDay()
-        dayList.push(item)
-        rawData.splice(index, 1)
-        if (!(toDay === itemDay)) {
-            weekList.push(dayList)
-            while (rawData.length > index) {
-                weekList.push(rawData.splice(0, 8))
-            }
+export function formatWeekList(rawData) {
+    let weekList = []
+    let dayList = []
+    let lastDay = rawData[0].dt_txt.substring(0, 10)
+
+    rawData.forEach((item => {
+        if (item.dt_txt.substring(0, 10) === lastDay) {
+            dayList.push(item)
+            return
         }
-    })
+        weekList.push(dayList)
+        dayList = []
+        lastDay = item.dt_txt.substring(0, 10)
+        dayList.push(item)
+    }))
     weekList.splice(5, 1)
     return weekList
 }
-
-
