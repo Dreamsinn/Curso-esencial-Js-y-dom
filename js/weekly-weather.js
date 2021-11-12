@@ -5,6 +5,8 @@ import {createDOM} from './Utils/dom.js'
 import {createPeriodTime} from './period-time.js'
 import draggable from "./draggable.js";
 import WeeklyWeatherClickEvent from "./template.js";
+import {dailyWeather} from "./dailyWeather.js";
+import {tabsEvent} from "./tabs.js";
 
 
 function tabPanelTemplate(id) {
@@ -52,7 +54,12 @@ export default async function weeklyWeather() {
 
     configWeeklyWeather(weekList)
 
+    WeeklyWeatherClickEvent($container, weekList)
+
+    tabsEvent(weekList)
+
+    dailyWeather(weekList)
+
     draggable($container)
 
-    WeeklyWeatherClickEvent($container)
 }

@@ -36,3 +36,27 @@
     inset-inline-end: 0;
 }
 
+.dailyWeather {
+    margin: -1rem 1.5rem 1rem 1.5rem;
+}
+
+.dailyWeather-mesures {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mesure {
+    display: flex;
+}
+
+.ask {
+    color: var(--white);
+    padding-right: .5rem;
+    margin: .8rem 0 0 0;
+}
+
+.reply {
+    color: white;
+    font-weight: bolder;
+    margin: .8rem 0 0 0;
+}

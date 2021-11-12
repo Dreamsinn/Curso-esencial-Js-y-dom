@@ -20,6 +20,7 @@ export default function draggable($el, config = defaultConfig) {
 
     const VISIBLE_Y_POSITION = 0
     const HIDDEN_Y_POSITION = ELEMENT_BLOCK_SIZE - MARKER_BLOCK_SIZE
+
     let widgetPostion = VISIBLE_Y_POSITION
     isOpen ? open() : close()
     let startY = 0
@@ -73,7 +74,7 @@ export default function draggable($el, config = defaultConfig) {
     function startDrag(event) {
         isDragging = true
         startY = pageY(event)
-        logger({y})
+        logger({startY})
     }
 
     function bounce() {
