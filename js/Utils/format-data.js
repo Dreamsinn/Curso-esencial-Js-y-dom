@@ -41,7 +41,7 @@ export function formatWeekList(rawData) {
     let dayList = []
     let lastDay = rawData[0].dt_txt.substring(0, 10)
 
-    rawData.forEach((item => {
+    rawData.forEach((item) => {
         if (item.dt_txt.substring(0, 10) === lastDay) {
             dayList.push(item)
             return
@@ -50,7 +50,20 @@ export function formatWeekList(rawData) {
         dayList = []
         lastDay = item.dt_txt.substring(0, 10)
         dayList.push(item)
-    }))
+    })
     weekList.splice(5, 1)
+    selectFirstHourDay(weekList)
+
+    return weekList
+}
+
+function selectFirstHourDay(weekList) {
+    weekList.map((item) => {
+        item.map((weather) => {
+            if (weather === weekList[0][0]) {
+                weather.dt = ""
+            }
+        })
+    })
     return weekList
 }

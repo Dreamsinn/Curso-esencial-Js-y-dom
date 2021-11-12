@@ -1,4 +1,3 @@
-
 const $tabContainer = document.querySelector('#tabs')
 const $tabList = $tabContainer.querySelectorAll('.tab')
 
@@ -27,7 +26,7 @@ $tabList.forEach(($tab, index) => {
     if (index === 0) {
         $tab.textContent = 'Hoy'
         weekday = nextDay(weekday)
-        return false
+        return
     }
     $tab.textContent = week[weekday]
     weekday = nextDay(weekday)
@@ -47,4 +46,11 @@ function handleSelectTabClic(event) {
     $tabPanel.hidden = false
     $tabPanelSelected.hidden = true
 
+
+    const $templateId = id.charAt(4)
+    const $templateSelected = document.querySelector(`#template-${$templateId}00`)
+    const $templateActive = document.querySelector('.is-selected')
+
+    $templateSelected.classList.add('is-selected')
+    $templateActive.classList.remove('is-selected')
 }

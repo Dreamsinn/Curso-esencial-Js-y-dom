@@ -4,11 +4,12 @@ import {formatWeekList} from './Utils/format-data.js'
 import {createDOM} from './Utils/dom.js'
 import {createPeriodTime} from './period-time.js'
 import draggable from "./draggable.js";
+import WeeklyWeatherClickEvent from "./template.js";
 
 
 function tabPanelTemplate(id) {
     return `
-        <div class="tabPanel" tabindex="0" aria-labelledby="tab-${id}">
+        <div class="tabPanel" tabindex="${id}" aria-labelledby="tab-${id}">
             <div class="dayWeather" id="dayWeather-${id}">
                 <ul class="dayWeather-list" id="dayWeather-list-${id}">
                     
@@ -28,13 +29,12 @@ function createTabPanel(id) {
 
 function configWeeklyWeather(weekList) {
     const $container = document.querySelector('.tabs')
-
     weekList.forEach((day, index) => {
         const $panel = createTabPanel(index)
         $container.append($panel)
-        day.forEach((weather) => {
-            $panel.querySelector('.dayWeather-list').append(createPeriodTime(weather))
-
+        const $panelIndex = index
+        day.forEach((weather, index) => {
+            $panel.querySelector('.dayWeather-list').append(createPeriodTime(weather, `${$panelIndex}${index}`))
         })
     })
 }
@@ -53,4 +53,6 @@ export default async function weeklyWeather() {
     configWeeklyWeather(weekList)
 
     draggable($container)
+
+    WeeklyWeatherClickEvent($container)
 }
